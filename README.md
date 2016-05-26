@@ -22,4 +22,7 @@ ___________________________________________________________
 ### github address : https://github.com/raminea/TeleMandy0113
 ___________________________________________________________
 # Sudo : [ramin](https://telegram.me/raminea)
-# Api Bot : **[https://telegram.me/TeleMandy_bot]**
+## Api Bot : **https://telegram.me/TeleMandy_bot**
+### plugins by [RAMIN](https://telegram.me/raminea)
+___________________________________________________________
+Good Luck
