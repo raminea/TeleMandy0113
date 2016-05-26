@@ -1,4 +1,4 @@
-# [TeleMandy](https://telegram.me/TeleMandy) its best bot.
+# [TeleMandy](https://telegram.me/TeleMandy) its new and best bot.
 ## based on TeleSeed.
 ___________________________________________________________
 ##For install : 
@@ -18,6 +18,8 @@ ___________________________________________________________
 <b>./launch.sh install</b>
 
 <b>./launch.sh</b>
+___________________________________________________________
+<tr>user<tr>
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 -----
