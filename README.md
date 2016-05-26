@@ -20,8 +20,12 @@ ___________________________________________________________
 <b>./launch.sh</b>
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
-* !plugins enable [name] for enable plugin
-* !plugins disable [name] for disable plugin
+-----
+See the plugins list with `!plugins` command.
+
+Enable a disabled plugin by `!plugins enable [name]`.
+
+Disable an enabled plugin by `!plugins disable [name]`.
 
 ___________________________________________________________
 ### github address : https://github.com/raminea/TeleMandy0113
