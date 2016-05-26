@@ -19,11 +19,15 @@ ___________________________________________________________
 
 <b>./launch.sh</b>
 ___________________________________________________________
+<table>
+<body>
 <tr>
       <td>vote.lua</td>
       <td>Plugin for voting in groups.</td>
       <td>!voting reset: Reset all the votes.<br>!vote [number]: Cast the vote.<br>!voting stats: Shows the statistics of voting.<br></td>
     </tr>
+    </table>
+    </body>
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 -----
