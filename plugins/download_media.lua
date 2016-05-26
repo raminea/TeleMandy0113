@@ -27,7 +27,8 @@ end
 return {
   run = run,
   patterns = {
-    '%[(photo)%]'
+    '%[(photo)%]',
+    '%[(document)%]'
 	},
   pre_process = pre_process
 }
