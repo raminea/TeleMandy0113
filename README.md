@@ -19,6 +19,10 @@ cd TeleMandy0113
 
 ./launch.sh
 ___________________________________________________________
+## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
+* !plugins enable [name] for enable plugin
+* !plugins disable [name] for disable plugin
+___________________________________________________________
 ### github address : https://github.com/raminea/TeleMandy0113
 ___________________________________________________________
 # Sudo : [ramin](https://telegram.me/raminea)
