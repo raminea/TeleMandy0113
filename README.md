@@ -2,8 +2,8 @@
 ## based on TeleSeed.
 ___________________________________________________________
 ##For install : 
-<b> user </b>
-sudo apt-get update
+
+<b>sudo apt-get update</b>
 
 sudo apt-get upgrade
 
