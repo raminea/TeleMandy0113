@@ -18,7 +18,7 @@ ___________________________________________________________
 <b>./launch.sh install</b>
 
 <b>./launch.sh</b>
-
+![http://uupload.ir/viewer.php?file=omg3_photo_2016-05-14_14-32-35.jpg]
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 -----
