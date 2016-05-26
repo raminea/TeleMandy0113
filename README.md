@@ -1,4 +1,4 @@
-[TeleMandy](https://telegram.me/TeleMandy) its best bot.
+# [TeleMandy](https://telegram.me/TeleMandy) its best bot.
 ## based on TeleSeed.
 ___________________________________________________________
 For install : 
@@ -19,6 +19,7 @@ cd TeleMandy0113
 
 ./launch.sh
 ___________________________________________________________
-## github address : https://github.com/raminea/TeleMandy0113
+### github address : https://github.com/raminea/TeleMandy0113
 ___________________________________________________________
-* Sudo : [ramin](https://telegram.me/raminea)
+# Sudo : [ramin](https://telegram.me/raminea)
+# Api Bot : **[https://telegram.me/TeleMandy_bot]**
