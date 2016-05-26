@@ -1,7 +1,7 @@
 # [TeleMandy](https://telegram.me/TeleMandy) its best bot.
 ## based on TeleSeed.
 ___________________________________________________________
-For install : 
+##For install : 
 
 sudo apt-get update
 
@@ -22,6 +22,7 @@ ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 * !plugins enable [name] for enable plugin
 * !plugins disable [name] for disable plugin
+
 ___________________________________________________________
 ### github address : https://github.com/raminea/TeleMandy0113
 ___________________________________________________________
@@ -29,4 +30,4 @@ ___________________________________________________________
 ## Api Bot : **https://telegram.me/TeleMandy_bot**
 ### plugins by [RAMIN](https://telegram.me/raminea)
 ___________________________________________________________
-Good Luck
+Good Luck ;)
