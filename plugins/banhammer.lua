@@ -66,7 +66,7 @@ local function pre_process(msg)
     --if not data[tostring(texttext)][tostring(msg.to.id)] and not is_realm(msg) then -- Check if this group is one of my groups or not
     --chat_del_user('chat#id'..msg.to.id,'user#id'..our_id,ok_cb,false)
     --return 
-    --end
+    --end kick
     local user_id = msg.from.id
     local chat_id = msg.to.id
     local banned = is_banned(user_id, chat_id)
@@ -91,17 +91,17 @@ local function kick_ban_res(extra, success, result)
       local from_id = extra.from_id
       local get_cmd = extra.get_cmd
       local receiver = "chat#id"..chat_id
-       if get_cmd == "kick" then
+       if get_cmd == "sick" then
          if member_id == from_id then
-             return send_large_msg(receiver, "You can't kick yourself")
+             return send_large_msg(receiver, "You can't sick yourself🤖")
          end
          if is_momod2(member_id, chat_id) and not is_admin2(sender) then
-            return send_large_msg(receiver, "You can't kick mods/owner/admins")
+            return send_large_msg(receiver, "You can't sick mods/owner/admins🤖")
          end
          return kick_user(member_id, chat_id)
       elseif get_cmd == 'ban' then
         if is_momod2(member_id, chat_id) and not is_admin2(sender) then
-          return send_large_msg(receiver, "You can't ban mods/owner/admins")
+          return send_large_msg(receiver, "You can't ban mods/owner/admins🤖")
         end
         send_large_msg(receiver, 'User @'..member..' ['..member_id..'] banned')
         return ban_user(member_id, chat_id)
@@ -122,7 +122,7 @@ end
 local function run(msg, matches)
  if matches[1]:lower() == 'id' then
     if msg.to.type == "user" then
-      return "Bot ID: "..msg.to.id.. "\n\nYour ID: "..msg.from.id
+      return "🤖Bot ID: "..msg.to.id.. "\n\n👤Your ID: "..msg.from.id
     end
     if type(msg.reply_id) ~= "nil" then
       local name = user_print_name(msg.from)
@@ -134,7 +134,7 @@ local function run(msg, matches)
       return "Group ID for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id  
     end
   end
-  if matches[1]:lower() == 'kickme' then-- /kickme
+  if matches[1]:lower() == 'sickme' then-- /kickme
   local receiver = get_receiver(msg)
     if msg.to.type == 'chat' then
       local name = user_print_name(msg.from)
@@ -203,7 +203,7 @@ local function run(msg, matches)
         	redis:srem(hash, user_id)
         	local name = user_print_name(msg.from)
         	savelog(msg.to.id, name.." ["..msg.from.id.."] unbaned user ".. matches[2])
-        	return 'User '..user_id..' unbanned'
+        	return '🔰User '..user_id..' unbanned✅'
       else
 		local cbres_extra = {
 			chat_id = msg.to.id,
@@ -230,10 +230,10 @@ if matches[1]:lower() == 'kick' then
 			return
 		end
 		if not is_admin(msg) and is_momod2(matches[2], msg.to.id) then
-			return "you can't kick mods/owner/admins"
+			return "you can't kick mods/owner/admins❌"
 		end
 		if tonumber(matches[2]) == tonumber(msg.from.id) then
-			return "You can't kick your self !"
+			return "You can't kick your self ❌"
 		end
       		local user_id = matches[2]
       		local chat_id = msg.to.id
@@ -269,7 +269,7 @@ end
          	return false 
         end
         	banall_user(targetuser)
-       		return 'User ['..user_id..' ] globally banned'
+       		return '🔰User ['..user_id..' ] globally banned✅'
       else
 	local cbres_extra = {
 		chat_id = msg.to.id,
@@ -289,7 +289,7 @@ end
           	return false 
         end
        		unbanall_user(user_id)
-        	return 'User ['..user_id..' ] removed from global ban list'
+        	return '🔰User ['..user_id..' ] removed from global ban list✅'
       else
 	local cbres_extra = {
 		chat_id = msg.to.id,
@@ -314,12 +314,12 @@ return {
     "^[!/]([Bb]anlist)$",
     "^[!/]([Gg]banlist)$",
     "^[!/]([Bb]an) (.*)$",
-    "^[!/]([Kk]ick)$",
+    "^[!/]([Ss]ick)$",
     "^[!/]([Uu]nban) (.*)$",
     "^[!/]([Uu]nbanall) (.*)$",
     "^[!/]([Uu]nbanall)$",
-    "^[!/]([Kk]ick) (.*)$",
-    "^[!/]([Kk]ickme)$",
+    "^[!/]([Ss]ick) (.*)$",
+    "^[!/]([Ss]ickme)$",
     "^[!/]([Bb]an)$",
     "^[!/]([Uu]nban)$",
     "^[!/]([Ii]d)$",
