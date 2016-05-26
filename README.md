@@ -2,22 +2,22 @@
 ## based on TeleSeed.
 ___________________________________________________________
 ##For install : 
-
+```bash
 <b>sudo apt-get update</b>
 
-sudo apt-get upgrade
+<b>sudo apt-get upgrade</b>
 
-sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
+<b>sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev</b>
 
-cd $HOME
+<b>cd $HOME</b>
 
-git clone https://github.com/raminea/TeleMandy0113
+<b>git clone https://github.com/raminea/TeleMandy0113</b>
 
-cd TeleMandy0113
+<b>cd TeleMandy0113</b>
 
-./launch.sh install
+<b>./launch.sh install</b>
 
-./launch.sh
+<b>./launch.sh</b>
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 * !plugins enable [name] for enable plugin
