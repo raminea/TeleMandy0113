@@ -121,33 +121,33 @@ local function run(msg,matches)
     end
     if matches[1] == "setbotphoto" then
     	redis:set("bot:photo", "waiting")
-    	return 'Please send me bot photo now'
+    	return 'Please send me bot photo now🚀'
     end
     if matches[1] == "markread" then
     	if matches[2] == "on" then
     		redis:set("bot:markread", "on")
-    		return "Mark read > on"
+    		return "Bot > on🔵"
     	end
     	if matches[2] == "off" then
     		redis:del("bot:markread")
-    		return "Mark read > off"
+    		return "Bot > off🔴"
     	end
     	return
     end
     if matches[1] == "pm" then
     	send_large_msg("user#id"..matches[2],matches[3])
-    	return "Msg sent"
+    	return "Msg sent✅"
     end
     if matches[1] == "block" then
     	if is_admin2(matches[2]) then
-    		return "You can't block admins"
+    		return "You can't block admins⚠️"
     	end
     	block_user("user#id"..matches[2],ok_cb,false)
-    	return "User blocked"
+    	return "User blocked✔️"
     end
     if matches[1] == "unblock" then
     	unblock_user("user#id"..matches[2],ok_cb,false)
-    	return "User unblocked"
+    	return "User unblocked✔️"
     end
     if matches[1] == "import" then--join by group link
     	local hash = parsed_url(matches[2])
@@ -158,11 +158,11 @@ local function run(msg,matches)
       return "I've sent contact list with both json and text format to your private"
     end
     if matches[1] == "addcontact" and matches[2] then    add_contact(matches[2],matches[3],matches[4],ok_cb,false)
-      return "Number "..matches[2].." add from contact list"
+      return "Number "..matches[2].." add from contact list✅"
     end
     if matches[1] == "delcontact" then
       del_contact("user#id"..matches[2],ok_cb,false)
-      return "User "..matches[2].." removed from contact list"
+      return "User "..matches[2].." removed from contact list✅"
     end
     if matches[1] == "dialoglist" then
       get_dialog_list(get_dialog_list_callback, {target = msg.from.id})
