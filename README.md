@@ -30,4 +30,4 @@ ___________________________________________________________
 ## Api Bot : **https://telegram.me/TeleMandy_bot**
 ### plugins by [RAMIN](https://telegram.me/raminea)
 ___________________________________________________________
-<br>Good Luck ;)</br>
+**Good Luck ;)**
