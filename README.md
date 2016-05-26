@@ -2,7 +2,7 @@
 ## based on TeleSeed.
 ___________________________________________________________
 ##For install : 
-```bash
+
 <b>sudo apt-get update</b>
 
 <b>sudo apt-get upgrade</b>
