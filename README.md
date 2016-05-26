@@ -19,7 +19,11 @@ ___________________________________________________________
 
 <b>./launch.sh</b>
 ___________________________________________________________
-<tr>user<tr>
+<tr>
+     <td>ban.lua</td>
+     <td>kick.lua</td>
+     <td>globall</td>
+    </tr>
 ___________________________________________________________
 ## Enable More [`plugins`](https://github.com/raminea/TeleMandy0113/tree/master/plugins)
 -----
