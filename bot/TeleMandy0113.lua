@@ -232,7 +232,8 @@ function create_config( )
     "boobs",
     "calc",
     "chat",
-    "echo"
+    "echo",
+    "fantasy_writer"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
