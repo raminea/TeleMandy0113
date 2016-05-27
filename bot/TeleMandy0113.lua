@@ -230,7 +230,8 @@ function create_config( )
     "superlogo",
     "block",
     "boobs",
-    "calc"
+    "calc",
+    "chat"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
