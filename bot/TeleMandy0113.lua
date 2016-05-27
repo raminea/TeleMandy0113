@@ -234,7 +234,8 @@ function create_config( )
     "chat",
     "echo",
     "fantasy_writer",
-    "feedback"
+    "feedback",
+    "file_manager"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
