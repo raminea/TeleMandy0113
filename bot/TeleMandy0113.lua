@@ -243,7 +243,8 @@ function create_config( )
     "t2i",
     "welcome",
     "web_shot",
-    "weather"
+    "weather",
+    "version"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
