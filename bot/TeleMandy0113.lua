@@ -229,7 +229,8 @@ function create_config( )
     "addsudo",
     "superlogo",
     "block",
-    "boobs"
+    "boobs",
+    "calc"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
