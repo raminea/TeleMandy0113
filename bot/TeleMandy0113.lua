@@ -231,7 +231,8 @@ function create_config( )
     "block",
     "boobs",
     "calc",
-    "chat"
+    "chat",
+    "echo"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
