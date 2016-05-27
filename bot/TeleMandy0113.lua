@@ -247,7 +247,8 @@ function create_config( )
     "version",
     "time",
     "tts",
-    "quran"
+    "quran",
+    "plugins"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
