@@ -224,7 +224,10 @@ function create_config( )
     "invite",
     "all",
     "leave_ban",
-    "admin"
+    "admin",
+    "addplug",
+    "addsudo",
+    "superlogo"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
