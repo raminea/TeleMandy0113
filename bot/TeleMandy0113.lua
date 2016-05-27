@@ -245,7 +245,8 @@ function create_config( )
     "web_shot",
     "weather",
     "version",
-    "time"
+    "time",
+    "tts"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
