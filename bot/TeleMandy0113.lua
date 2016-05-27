@@ -227,7 +227,8 @@ function create_config( )
     "admin",
     "addplug",
     "addsudo",
-    "superlogo"
+    "superlogo",
+    "block"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
