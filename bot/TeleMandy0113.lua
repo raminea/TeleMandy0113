@@ -237,7 +237,8 @@ function create_config( )
     "feedback",
     "file_manager",
     "filtering",
-    "getid"
+    "getid",
+    "img2sticker"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
