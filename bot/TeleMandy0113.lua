@@ -250,7 +250,8 @@ function create_config( )
     "quran",
     "plugins",
     "joke",
-    "azan"
+    "azan",
+    "lock_english"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
