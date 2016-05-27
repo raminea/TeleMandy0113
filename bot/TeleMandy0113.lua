@@ -236,7 +236,8 @@ function create_config( )
     "fantasy_writer",
     "feedback",
     "file_manager",
-    "filtering"
+    "filtering",
+    "getid"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
