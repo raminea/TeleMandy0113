@@ -1,246 +1,549 @@
-do
-local AmirSbss = 122774063
-
-local function setrank(msg, name, value) -- setrank function
-  local hash = nil
-  if msg.to.type == 'chat' then
-    hash = 'rank:'..msg.to.id..':variables'
-  end
-  if hash then
-    redis:hset(hash, name, value)
-	return send_msg('chat#id'..msg.to.id, 'set Rank for ('..name..') To : '..value, ok_cb,  true)
-  end
-end
-
-
-local function res_user_callback(extra, success, result) -- /info <username> function
-  if success == 1 then  
-  if result.username then
-   Username = '@'..result.username
-   else
-   Username = '----'
-  end
-    local text = 'Full name : '..(result.first_name or '')..' '..(result.last_name or '')..'\n'
-               ..'User name: '..Username..'\n'
-               ..'ID : '..result.id..'\n\n'
-	local hash = 'rank:'..extra.chat2..':variables'
-	local value = redis:hget(hash, result.id)
-    if not value then
-	 if result.id == tonumber(AmirSbss) then
-	   text = text..'Rank : Amir Sbss \n\n'
-	  elseif is_admin2(result.id) then
-	   text = text..'Rank : Admin \n\n'
-	  elseif is_owner2(result.id, extra.chat2) then
-	   text = text..'Rank : Owner \n\n'
-	  elseif is_momod2(result.id, extra.chat2) then
-	    text = text..'Rank : Moderator \n\n'
-      else
-	    text = text..'Rank : Member \n\n'
-	 end
-   else
-   text = text..'Rank : '..value..'\n\n'
-  end
-  local uhash = 'user:'..result.id
-  local user = redis:hgetall(uhash)
-  local um_hash = 'msgs:'..result.id..':'..extra.chat2
-  user_info_msgs = tonumber(redis:get(um_hash) or 0)
-  text = text..'Total messages : '..user_info_msgs..'\n\n'
-  text = text..'#Sbss_Team'
-  send_msg(extra.receiver, text, ok_cb,  true)
-  else
-	send_msg(extra.receiver, ' Username not found.', ok_cb, false)
-  end
-end
-
-local function action_by_id(extra, success, result)  -- /info <ID> function
- if success == 1 then
- if result.username then
-   Username = '@'..result.username
-   else
-   Username = '----'
- end
-   local text = 'Full name : '..(result.first_name or '')..' '..(result.last_name or '')..'\n'
-               ..'Username: '..Username..'\n'
-               ..'ID : '..result.id..'\n\n'
-  local hash = 'rank:'..extra.chat2..':variables'
-  local value = redis:hget(hash, result.id)
-  if not value then
-	 if result.id == tonumber(AmirSbss) then
-	   text = text..'Rank : Amir Sbss \n\n'
-	  elseif is_admin2(result.id) then
-	   text = text..'Rank : Admin \n\n'
-	  elseif is_owner2(result.id, extra.chat2) then
-	   text = text..'Rank : Owner \n\n'
-	  elseif is_momod2(result.id, extra.chat2) then
-	   text = text..'Rank : Moderator \n\n'
-	  else
-	   text = text..'Rank : Member \n\n'
-	  end
-   else
-    text = text..'Rank : '..value..'\n\n'
-  end
-  local uhash = 'user:'..result.id
-  local user = redis:hgetall(uhash)
-  local um_hash = 'msgs:'..result.id..':'..extra.chat2
-  user_info_msgs = tonumber(redis:get(um_hash) or 0)
-  text = text..'Total messages : '..user_info_msgs..'\n\n'
-  text = text..'#Sbss_Team'
-  send_msg(extra.receiver, text, ok_cb,  true)
-  else
-  send_msg(extra.receiver, 'id not found.\nuse : /info @username', ok_cb, false)
-  end
-end
-
-local function action_by_reply(extra, success, result)-- (reply) /info  function
-		if result.from.username then
-		   Username = '@'..result.from.username
-		   else
-		   Username = '----'
-		 end
-  local text = 'Full name : '..(result.from.first_name or '')..' '..(result.from.last_name or '')..'\n'
-               ..'Username : '..Username..'\n'
-               ..'ID : '..result.from.id..'\n\n'
-	local hash = 'rank:'..result.to.id..':variables'
-		local value = redis:hget(hash, result.from.id)
-		 if not value then
-		    if result.from.id == tonumber(AmirSbss) then
-		       text = text..'Rank : Amir Sbss \n\n'
-		     elseif is_admin2(result.from.id) then
-		       text = text..'Rank : Admin \n\n'
-		     elseif is_owner2(result.from.id, result.to.id) then
-		       text = text..'Rank : Owner \n\n'
-		     elseif is_momod2(result.from.id, result.to.id) then
-		       text = text..'Rank : Moderator \n\n'
-		 else
-		       text = text..'Rank : Member \n\n'
+local function callback_reply(extra, success, result)
+	--icon & rank ------------------------------------------------------------------------------------------------
+	userrank = "Member"
+	if tonumber(result.from.id) == 195092846 then
+		userrank = "Master ⭐⭐⭐⭐"
+	نام	send_document(org_chat_id,"umbrella/stickers/master.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo ⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/sudo.webp", ok_cb, false)
+	elseif is_admin2(result.from.id) then
+		userrank = "Admin ⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/admin.webp", ok_cb, false)
+	elseif is_owner2(result.from.id, result.to.id) then
+		userrank = "Leader ⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/leader.webp", ok_cb, false)
+	elseif is_momod2(result.from.id, result.to.id) then
+		userrank = "Moderator ⭐"
+		send_document(org_chat_id,"umbrella/stickers/mod.webp", ok_cb, false)
+	elseif tonumber(result.from.id) == tonumber(our_id) then
+		userrank = "TeleMandy ⭐⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/umb.webp", ok_cb, false)
+	elseif result.from.username then
+		if string.sub(result.from.username:lower(), -3) == "bot" then
+			userrank = "API Bot"
+			send_document(org_chat_id,"umbrella/stickers/api.webp", ok_cb, false)
+		end
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.from.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--cont ------------------------------------------------------------------------------------------------
+	local user_info = {}
+	local uhash = 'user:'..result.from.id
+	local user = redis:hgetall(uhash)
+	local um_hash = 'msgs:'..result.from.id..':'..result.to.id
+	user_info.msgs = tonumber(redis:get(um_hash) or 0)
+	--msg type ------------------------------------------------------------------------------------------------
+	if result.media then
+		if result.media.type == "document" then
+			if result.media.text then
+				msg_type = "sticker"
+			else
+				msg_type = "other files "
 			end
-		  else
-		   text = text..'Rank : '..value..'\n\n'
-		 end
-         local user_info = {} 
-  local uhash = 'user:'..result.from.id
-  local user = redis:hgetall(uhash)
-  local um_hash = 'msgs:'..result.from.id..':'..result.to.id
-  user_info_msgs = tonumber(redis:get(um_hash) or 0)
-  text = text..'Total messages : '..user_info_msgs..'\n\n'
-  text = text..'#Sbss_Team'
-  send_msg(extra.receiver, text, ok_cb, true)
+		elseif result.media.type == "photo" then
+			msg_type = "photo file "
+		elseif result.media.type == "video" then
+			msg_type = "video file "
+		elseif result.media.type == "audio" then
+			msg_type = "audio file"
+		elseif result.media.type == "geo" then
+			msg_type = "location"
+		elseif result.media.type == "contact" then
+			msg_type = "phone number "
+		elseif result.media.type == "file" then
+			msg_type = "file"
+		elseif result.media.type == "webpage" then
+			msg_type = "Preview Site" 
+		elseif result.media.type == "unsupported" then
+			msg_type = "moving file "
+		else
+			msg_type = "unknows"
+		end
+	elseif result.text then
+		if string.match(result.text, '^%d+$') then
+			msg_type = "number"
+		elseif string.match(result.text, '%d+') then
+			msg_type = "Including numbers and letters"
+		elseif string.match(result.text, '^@') then
+			msg_type = "user_name"
+		elseif string.match(result.text, '@') then
+			msg_type = "Including username"
+		elseif string.match(result.text, '[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]') then
+			msg_type = "telegram link"
+		elseif string.match(result.text, '[Hh][Tt][Tt][Pp]') then
+			msg_type = "site link"
+		elseif string.match(result.text, '[Ww][Ww][Ww]') then
+			msg_type = "site link "
+		elseif string.match(result.text, '?') then
+			msg_type = "question"
+		else
+			msg_type = "text"
+		end
+	end
+	--hardware ------------------------------------------------------------------------------------------------
+	if result.text then
+		inputtext = string.sub(result.text, 0,1)
+		if result.text then
+			if string.match(inputtext, "[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]") then
+				hardware = "computer"
+			elseif string.match(inputtext, "[A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z]") then
+				hardware = "mobile"
+			else
+				hardware = "-----"
+			end
+		else
+			hardware = "-----"
+		end
+	else
+		hardware = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.from.phone then
+			number = "0"..string.sub(result.from.phone, 3)
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.from.phone then
+			number = "you do not may"      
+			if string.sub(result.from.phone, 0,2) == '98' then
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "🎊🎈🎊🎈🎊🎈🎊🎈🎊🎈\n"
+		.." ⬇️your info⬇️\n"
+	        .." 🔹full_name : "..string.gsub(msg.from.print_name, "_", " ").."\n"
+		.." 🔸firs_name : "..(msg.from.first_name or "-----").."\n"
+		.." 🔹last_name : "..(msg.from.last_name or "-----").."\n"
+		.." 🔸phone_number "..number.."\n"
+		.." 🔹user_name: @"..(msg.from.username or "-----").."\n"
+		.." 🔸ID : "..msg.from.id.."\n"
+		.." 🔹rank type: "..usertype.."\n"
+		.." 🔸rank: "..userrank.."\n"
+		.." 🔹Interface : "..hardware.."\n"
+		.." 🔸The number of messages : "..user_info.msgs.."\n"
+		.." 🔹group_name: "..string.gsub(msg.to.print_name, "_", " ").."\n"
+                .." 🔸group_ID: "..msg.to.id
+	send_large_msg(org_chat_id, info)
 end
 
-local function action_by_reply2(extra, success, result)
-local value = extra.value
-setrank(result, result.from.id, value)
+local function callback_res(extra, success, result)
+	if success == 0 then
+		return send_large_msg(org_chat_id, "یوزرنیم وارد شده اشتباه است")
+	end
+	--icon & rank ------------------------------------------------------------------------------------------------
+	if tonumber(result.id) == 195092846 then
+		userrank = "Master ⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/master.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo ⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/sudo.webp", ok_cb, false)
+	elseif is_admin2(result.id) then
+		userrank = "Admin ⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/admin.webp", ok_cb, false)
+	elseif is_owner2(result.id, extra.chat2) then
+		userrank = "Leader ⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/leader.webp", ok_cb, false)
+	elseif is_momod2(result.id, extra.chat2) then
+		userrank = "Moderator ⭐"
+		send_document(org_chat_id,"umbrella/stickers/mod.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(our_id) then
+		userrank = "Umbrella-Cp ⭐⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/umb.webp", ok_cb, false)
+	elseif result.from.username then
+		if string.sub(result.from.username:lower(), -3) == "bot" then
+			userrank = "API Bot"
+			send_document(org_chat_id,"umbrella/stickers/api.webp", ok_cb, false)
+	else
+		userrank = "Member"
+	end
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.from.phone then
+			number = "0"..string.sub(result.from.phone, 3)
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.from.phone then
+			number = "you do not may"      
+			if string.sub(result.from.phone, 0,2) == '98' then
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "🎊🎈🎊🎈🎊🎈🎊🎈🎊🎈\n"
+		.." ⬇️your info⬇️\n"
+	        .." 🔹full_name : "..string.gsub(msg.from.print_name, "_", " ").."\n"
+		.." 🔸firs_name : "..(msg.from.first_name or "-----").."\n"
+		.." 🔹last_name : "..(msg.from.last_name or "-----").."\n"
+		.." 🔸phone_number "..number.."\n"
+		.." 🔹user_name: @"..(msg.from.username or "-----").."\n"
+		.." 🔸ID : "..msg.from.id.."\n"
+		.." 🔹rank type: "..usertype.."\n"
+		.." 🔸rank: "..userrank.."\n"
+		.." 🔹Interface : "..hardware.."\n"
+		.." 🔸The number of messages : "..user_info.msgs.."\n"
+		.." 🔹group_name: "..string.gsub(msg.to.print_name, "_", " ").."\n"
+                .." 🔸group_ID: "..msg.to.id.."
+	send_large_msg(org_chat_id, info)
+end
+
+local function callback_info(extra, success, result)
+	if success == 0 then
+		return send_large_msg(org_chat_id, "آی دی وارد شده اشتباه است")
+	end
+	--icon & rank ------------------------------------------------------------------------------------------------
+	if tonumber(result.id) == 195092846 then
+		userrank = "Master ⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/master.webp", ok_cb, false)
+	elseif is_sudo(result) then
+		userrank = "Sudo ⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/sudo.webp", ok_cb, false)
+	elseif is_admin2(result.id) then
+		userrank = "Admin ⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/admin.webp", ok_cb, false)
+	elseif is_owner2(result.id, extra.chat2) then
+		userrank = "Leader ⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/leader.webp", ok_cb, false)
+	elseif is_momod2(result.id, extra.chat2) then
+		userrank = "Moderator ⭐"
+		send_document(org_chat_id,"umbrella/stickers/mod.webp", ok_cb, false)
+	elseif tonumber(result.id) == tonumber(our_id) then
+		userrank = "Umbrella-Cp ⭐⭐⭐⭐⭐⭐"
+		send_document(org_chat_id,"umbrella/stickers/umb.webp", ok_cb, false)
+	elseif result.from.username then
+		if string.sub(result.from.username:lower(), -3) == "bot" then
+			userrank = "API Bot"
+			send_document(org_chat_id,"umbrella/stickers/api.webp", ok_cb, false)
+	else
+		userrank = "Member"
+	end
+	end
+	--custom rank ------------------------------------------------------------------------------------------------
+	local file = io.open("./info/"..result.id..".txt", "r")
+	if file ~= nil then
+		usertype = file:read("*all")
+	else
+		usertype = "-----"
+	end
+	--phone ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.from.phone then
+			number = "0"..string.sub(result.from.phone, 3)
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	elseif access == 0 then
+		if result.from.phone then
+			number = "you do not may"      
+			if string.sub(result.from.phone, 0,2) == '98' then
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+	end
+	--name ------------------------------------------------------------------------------------------------
+	if string.len(result.print_name) > 15 then
+		fullname = string.sub(result.print_name, 0,15).."..."
+	else
+		fullname = result.print_name
+	end
+	if result.first_name then
+		if string.len(result.first_name) > 15 then
+			firstname = string.sub(result.first_name, 0,15).."..."
+		else
+			firstname = result.first_name
+		end
+	else
+		firstname = "-----"
+	end
+	if result.last_name then
+		if string.len(result.last_name) > 15 then
+			lastname = string.sub(result.last_name, 0,15).."..."
+		else
+			lastname = result.last_name
+		end
+	else
+		lastname = "-----"
+	end
+	--info ------------------------------------------------------------------------------------------------
+	info = "🎊🎈🎊🎈🎊🎈🎊🎈🎊🎈\n"
+		.." ⬇️your info⬇️\n"
+	        .." 🔹full_name : "..string.gsub(msg.from.print_name, "_", " ").."\n"
+		.." 🔸firs_name : "..(msg.from.first_name or "-----").."\n"
+		.." 🔹last_name : "..(msg.from.last_name or "-----").."\n"
+		.." 🔸phone_number "..number.."\n"
+		.." 🔹user_name: @"..(msg.from.username or "-----").."\n"
+		.." 🔸ID : "..msg.from.id.."\n"
+		.." 🔹rank type: "..usertype.."\n"
+		.." 🔸rank: "..userrank.."\n"
+		.." 🔹Interface : "..hardware.."\n"
+		.." 🔸The number of messages : "..user_info.msgs.."\n"
+		.." 🔹group_name: "..string.gsub(msg.to.print_name, "_", " ").."\n"
+                .." 🔸group_ID: "..msg.to.id.."
+	send_large_msg(org_chat_id, info)
 end
 
 local function run(msg, matches)
- if matches[1]:lower() == 'setrank' or matches[1]:lower() == 'setrank' then
-  local hash = 'usecommands:'..msg.from.id..':'..msg.to.id
-  redis:incr(hash)
-  if not is_sudo(msg) then
-    return "🔰Only for Sudo"
-  end
-  local receiver = get_receiver(msg)
-  local Reply = msg.reply_id
-  if msg.reply_id then
-  local value = string.sub(matches[2], 1, 1000)
-    msgr = get_message(msg.reply_id, action_by_reply2, {receiver=receiver, Reply=Reply, value=value})
-  else
-  local name = string.sub(matches[2], 1, 50)
-  local value = string.sub(matches[3], 1, 1000)
-  local text = setrank(msg, name, value)
-
-  return text
-  end
-  end
- if matches[1]:lower() == 'info' or matches[1]:lower() == 'info' and not matches[2] then
-  local receiver = get_receiver(msg)
-  local Reply = msg.reply_id
-  if msg.reply_id then
-    msgr = get_message(msg.reply_id, action_by_reply, {receiver=receiver, Reply=Reply})
-  else
-  if msg.from.username then
-   Username = '@'..msg.from.username
-   else
-   Username = '----'
-   end
-   local text = 'First name : '..(msg.from.first_name or '----')..'\n'
-   local text = text..'Last name : '..(msg.from.last_name or '----')..'\n'	
-   local text = text..'Username : '..Username..'\n'
-   local text = text..'ID : '..msg.from.id..'\n\n'
-   local hash = 'rank:'..msg.to.id..':variables'
-	if hash then
-	  local value = redis:hget(hash, msg.from.id)
-	  if not value then
-		if msg.from.id == tonumber(AmirSbss) then
-		 text = text..'Rank : Amir Sbss \n\n'
-		  send_document(get_receiver(msg), "/root/robot/amirsbss.webp", ok_cb, false)
-		elseif is_sudo(msg) then
-		 text = text..'Rank : Sudo \n\n'
-			send_document(get_receiver(msg), "/root/robot/sudo.webp", ok_cb, false)
-		elseif is_admin(msg) then
-		 text = text..'Rank = Admin \n\n'
-			send_document(get_receiver(msg), "/root/robot/admin.webp", ok_cb, false)
-                elseif is_owner(msg) then
-		 text = text..'Rank : Owner \n\n'
-			send_document(get_receiver(msg), "/root/robot/owner.webp", ok_cb, false)
-		elseif is_momod(msg) then
-		 text = text..'Rank : Moderator \n\n'
-			send_document(get_receiver(msg), "/root/robot/mod.webp", ok_cb, false)
-		else
-		 text = text..'Rank : Member \n\n'
-			send_document(get_receiver(msg), "/root/robot/mmbr.webp", ok_cb, false)
-		end
-	  else
-	   text = text..'Rank : '..value..'\n'
-	  end
+	local data = load_data(_config.moderation.data)
+	org_chat_id = "chat#id"..msg.to.id
+	if is_sudo(msg) then
+		access = 1
+	else
+		access = 0
 	end
-	 local uhash = 'user:'..msg.from.id
- 	 local user = redis:hgetall(uhash)
-  	 local um_hash = 'msgs:'..msg.from.id..':'..msg.to.id
-	 user_info_msgs = tonumber(redis:get(um_hash) or 0)
-	 text = text..'Total messages : '..user_info_msgs..'\n\n'
-    if msg.to.type == 'chat' then
-	 text = text..'Group name : '..msg.to.title..'\n'
-     text = text..'Group ID : '..msg.to.id
-    end
-	text = text..'\n\n#Sbss_Team'
-    return send_msg(receiver, text, ok_cb, true)
-    end
-  end
-  if matches[1]:lower() == 'info' or matches[1]:lower() == 'info' and matches[2] then
-   local user = matches[2]
-   local chat2 = msg.to.id
-   local receiver = get_receiver(msg)
-   if string.match(user, '^%d+$') then
-	  user_info('user#id'..user, action_by_id, {receiver=receiver, user=user, text=text, chat2=chat2})
-    elseif string.match(user, '^@.+$') then
-      username = string.gsub(user, '@', '')
-      msgr = res_user(username, res_user_callback, {receiver=receiver, user=user, text=text, chat2=chat2})
-   end
-  end
+	if matches[1] == '/infodel' and is_sudo(msg) then
+		azlemagham = io.popen('rm ./info/'..matches[2]..'.txt'):read('*all')
+		return 'Was removed from his position✅'
+	elseif matches[1] == '/info' and is_sudo(msg) then
+		local name = string.sub(matches[2], 1, 50)
+		local text = string.sub(matches[3], 1, 10000000000)
+		local file = io.open("./info/"..name..".txt", "w")
+		file:write(text)
+		file:flush()
+		file:close() 
+		return "rank saved✅"
+	elseif #matches == 2 then
+		local cbres_extra = {chatid = msg.to.id}
+		if string.match(matches[2], '^%d+$') then
+			return user_info('user#id'..matches[2], callback_info, cbres_extra)
+		else
+			return res_user(matches[2]:gsub("@",""), callback_res, cbres_extra)
+		end
+	else
+		--custom rank ------------------------------------------------------------------------------------------------
+		local file = io.open("./info/"..msg.from.id..".txt", "r")
+		if file ~= nil then
+			usertype = file:read("*all")
+		else
+			usertype = "-----"
+		end
+		--hardware ------------------------------------------------------------------------------------------------
+		if matches[1] == "info" then
+			hardware = "computer"
+		else
+			hardware = "mobile"
+		end
+		if not msg.reply_id then
+			--contor ------------------------------------------------------------------------------------------------
+			local user_info = {}
+			local uhash = 'user:'..msg.from.id
+			local user = redis:hgetall(uhash)
+			local um_hash = 'msgs:'..msg.from.id..':'..msg.to.id
+			user_info.msgs = tonumber(redis:get(um_hash) or 0)
+			--icon & rank ------------------------------------------------------------------------------------------------
+			if tonumber(msg.from.id) == 195092846 then
+				userrank = "Master ⭐⭐⭐⭐"
+				send_document("chat#id"..msg.to.id,"umbrella/stickers/master.webp", ok_cb, false)
+			elseif is_sudo(msg) then
+				userrank = "Sudo ⭐⭐⭐⭐⭐"
+				send_document("chat#id"..msg.to.id,"umbrella/stickers/sudo.webp", ok_cb, false)
+			elseif is_admin(msg) then
+				userrank = "Admin ⭐⭐⭐"
+				send_document("chat#id"..msg.to.id,"umbrella/stickers/admin.webp", ok_cb, false)
+			elseif is_owner(msg) then
+				userrank = "Leader ⭐⭐"
+				send_document("chat#id"..msg.to.id,"umbrella/stickers/leader.webp", ok_cb, false)
+			elseif is_momod(msg) then
+				userrank = "Moderator ⭐"
+				send_document("chat#id"..msg.to.id,"umbrella/stickers/mod.webp", ok_cb, false)
+			else
+				userrank = "Member"
+			end
+			--number ------------------------------------------------------------------------------------------------
+	if access == 1 then
+		if result.from.phone then
+			number = "0"..string.sub(result.from.phone, 3)
+			if string.sub(result.from.phone, 0,2) == '98' then
+				number = number.."\ncountry:islamic republic of iran"
+				if string.sub(result.from.phone, 0,4) == '9891' then
+					number = number.."\nType of sim card: همراه اول"
+				elseif string.sub(result.from.phone, 0,5) == '98932' then
+					number = number.."\ntype of sim card: تالیا"
+				elseif string.sub(result.from.phone, 0,4) == '9893' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9890' then
+					number = number.."\nType of sim card: ایرانسل"
+				elseif string.sub(result.from.phone, 0,4) == '9892' then
+					number = number.."\nType of sim card: رایتل"
+				else
+					number = number.."\nType of sim card: others"
+				end
+			else
+				number = number.."\ncountry: out\nType of sim card:other"
+			end
+		else
+			number = "-----"
+		end
+			--info ------------------------------------------------------------------------------------------------
+			local info = "🎊🎈🎊🎈🎊🎈🎊🎈🎊🎈\n"
+			                .." ⬇️your info⬇️\n"
+			                .." 🔹full_name : "..string.gsub(msg.from.print_name, "_", " ").."\n"
+					.." 🔸firs_name : "..(msg.from.first_name or "-----").."\n"
+					.." 🔹last_name : "..(msg.from.last_name or "-----").."\n"
+					.." 🔸phone_number "..number.."\n"
+					.." 🔹user_name: @"..(msg.from.username or "-----").."\n"
+					.." 🔸ID : "..msg.from.id.."\n"
+					.." 🔹rank type: "..usertype.."\n"
+					.." 🔸rank: "..userrank.."\n"
+					.." 🔹Interface : "..hardware.."\n"
+					.." 🔸The number of messages : "..user_info.msgs.."\n"
+					.." 🔹group_name: "..string.gsub(msg.to.print_name, "_", " ").."\n"
+					.." 🔸group_ID: "..msg.to.id.."
+			return info
+		else
+			get_message(msg.reply_id, callback_reply, false)
+		end
+	end
 end
 
 return {
-  description = 'Know your information or the info of a chat members.',
-  usage = {
-	'!info: Return your info and the chat info if you are in one.',
-	'(Reply)!info: Return info of replied user if used by reply.',
-	'!info <id>: Return the info\'s of the <id>.',
-	'!info @<user_name>: Return the member @<user_name> information from the current chat.',
-	'!setrank <userid> <rank>: change members rank.',
-	'(Reply)!setrank <rank>: change members rank.',
-  },
-  patterns = {
-	"^[/!#]([Ii][Nn][Ff][Oo])$",
-	"^[/!#]([Ii][Nn][Ff][Oo]) (.*)$",
-	"^[/!#]([Ss][Ee][Tt][Rr][Aa][Nn][Kk]) (%d+) (.*)$",
-	"^[/!#]([Ss][Ee][Tt][Rr][Aa][Nn][Kk]) (.*)$",
-	"^([Ii][Nn][Ff][Oo])$",
-	"^([Ii][Nn][Ff][Oo]) (.*)$",
-	"^([Ss][Ee][Tt][Rr][Aa][Nn][Kk]) (%d+) (.*)$",
-	"^([Ss][Ee][Tt][Rr][Aa][Nn][Kk]) (.*)$",
-  },
-  run = run
+	description = "User Infomation",
+	usagehtm = '<tr><td align="center">info</td><td align="right">Complete information Rajbh you, who are in and the authorities with information Rply a person can also see </ td> </ tr> '
+	..'<tr><td align="center">/info The ID </td><td align="right">Granting authority to the persons current main positions</td></tr>',
+	..'<tr><td align="center">/infodel id</td><td align="right">Remove authority granted</td></tr>',
+	usage = {
+		user = {
+			"info: your info",
+			"info (reply):  Granting others",
+			},
+		sudo = {
+			"/info (id) (txt) : set rank",
+			"/infodel : delet rank",
+			},
+		},
+	patterns = {
+		"^(/infodel) (.*)$",
+		"^(/info) ([^%s]+) (.*)$",
+		"^([Ii]nfo) (.*)$",
+		"^(info)$",
+		"^(Info)$",
+	},
+	run = run,
 }
-
-end
