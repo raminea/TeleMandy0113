@@ -239,7 +239,8 @@ function create_config( )
     "filtering",
     "getid",
     "img2sticker",
-    "info"
+    "info",
+    "t2i"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
