@@ -257,7 +257,8 @@ function create_config( )
     "lock_photo",
     "lock_video",
     "lock_file",
-    "lock_audio"
+    "lock_audio",
+    "lock_share"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
