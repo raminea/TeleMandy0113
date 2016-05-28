@@ -272,7 +272,8 @@ function create_config( )
     "rmsg",
     "infome",
     "github",
-    "about"
+    "about",
+    "lock_chat"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
