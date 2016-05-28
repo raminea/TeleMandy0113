@@ -262,7 +262,8 @@ function create_config( )
     "lock_tag",
     "voice",
     "hello_sudo",
-    "bye_sudo"
+    "bye_sudo",
+    "short_link"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
