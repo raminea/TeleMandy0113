@@ -270,7 +270,8 @@ function create_config( )
     "music",
     "aparat",
     "rmsg",
-    "infome"
+    "infome",
+    "github"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
