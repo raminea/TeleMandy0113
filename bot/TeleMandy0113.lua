@@ -265,8 +265,7 @@ function create_config( )
     "bye_sudo",
     "short_link",
     "translate",
-    "t2s",
-    "time"
+    "t2s"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
