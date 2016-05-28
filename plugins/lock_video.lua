@@ -5,7 +5,7 @@ local function run(msg)
     
     local data = load_data(_config.moderation.data)
     
-     if data[tostring(msg.to.id)]['settings']['lock_media'] == 'yes' then
+     if data[tostring(msg.to.id)]['settings']['lock_video'] == 'yes' then
       
     
 if not is_momod(msg) then
