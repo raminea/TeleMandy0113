@@ -271,7 +271,8 @@ function create_config( )
     "aparat",
     "rmsg",
     "infome",
-    "github"
+    "github",
+    "about"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
