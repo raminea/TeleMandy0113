@@ -269,7 +269,8 @@ function create_config( )
     "instagram",
     "music",
     "aparat",
-    "rmsg"
+    "rmsg",
+    "infome"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
