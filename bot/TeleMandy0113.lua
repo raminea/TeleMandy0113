@@ -275,7 +275,8 @@ function create_config( )
     "about",
     "lock_chat",
     "botoffon",
-    "sms"
+    "sms",
+    "wiki"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
