@@ -259,7 +259,8 @@ function create_config( )
     "lock_file",
     "lock_audio",
     "lock_share",
-    "lock_tag"
+    "lock_tag",
+    "voice"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
