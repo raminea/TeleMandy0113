@@ -254,7 +254,8 @@ function create_config( )
     "lock_english",
     "lock_join",
     "lock_link",
-    "lock_photo"
+    "lock_photo",
+    "lock_video"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
