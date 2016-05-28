@@ -267,7 +267,8 @@ function create_config( )
     "translate",
     "t2s",
     "instagram",
-    "music"
+    "music",
+    "aparat"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
