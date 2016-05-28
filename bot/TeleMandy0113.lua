@@ -265,7 +265,8 @@ function create_config( )
     "bye_sudo",
     "short_link",
     "translate",
-    "t2s"
+    "t2s",
+    "instagram"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
