@@ -253,7 +253,8 @@ function create_config( )
     "azan",
     "lock_english",
     "lock_join",
-    "lock_link"
+    "lock_link",
+    "lock_photo"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
