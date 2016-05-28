@@ -263,7 +263,8 @@ function create_config( )
     "voice",
     "hello_sudo",
     "bye_sudo",
-    "short_link"
+    "short_link",
+    "translate"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
