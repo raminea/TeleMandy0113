@@ -273,7 +273,8 @@ function create_config( )
     "infome",
     "github",
     "about",
-    "lock_chat"
+    "lock_chat",
+    "botoffon"
     },
     sudo_users = {195092846},--Sudo users
     disabled_channels = {},
